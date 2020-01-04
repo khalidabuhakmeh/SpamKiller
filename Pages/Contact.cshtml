@@ -1,0 +1,45 @@
+@page
+@model SpamKiller.Pages.Contact
+@{
+    ViewData["Title"] = "Contact";
+}
+
+@if (Model.IsSpam.HasValue)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-@(Model.IsSpam.Value ? "warning" : "success")" role="alert">
+                <h4 class="alert-heading">The Results Are In!</h4>
+                @if (Model.IsSpam.Value)
+                {
+                    <p>Boo his, you're trying to submit SPAM to my application. You should be ashamed of your nefarious activity.</p>
+                }
+                else
+                {
+                    <p>Aww yeah, you successfully submitted some quality stuff here. We'll get back to you as soon as we can.</p>
+                }
+                <hr>
+                <p class="mb-0">Calling Akismet insures we filter out as much SPAM as possible.</p>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-center">
+            <form asp-page="Contact" method="post" name="contact">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" asp-for="Author">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Example textarea</label>
+                    <textarea class="form-control" id="comment" rows="3" asp-for="Comment"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
